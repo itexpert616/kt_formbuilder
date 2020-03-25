@@ -56,4 +56,4 @@ export default class controlQuill extends controlTextarea {
 }
 
 // register quill as a richtext control
-controlTextarea.register('quill', controlQuill, 'textarea');
+// controlTextarea.register('quill', controlQuill, 'textarea');

@@ -524,48 +524,50 @@ export default class Helpers {
    * @return {Object}            Reference to the modal
    */
   confirm(message, yesAction, coords = false, className = '') {
-    const _this = this;
-    let i18n = mi18n.current;
-    let overlay = _this.showOverlay();
-    let yes = m('button', i18n.yes, {
-      className: 'yes btn btn-success btn-sm'
-    });
-    let no = m('button', i18n.no, {
-      className: 'no btn btn-danger btn-sm'
-    });
+    if(!$('.form-builder-overlay.visible').length){/////mobile warning alert error fix
+      const _this = this;
+      let i18n = mi18n.current;
+      let overlay = _this.showOverlay();
+      let yes = m('button', i18n.yes, {
+        className: 'yes btn btn-success btn-sm'
+      });
+      let no = m('button', i18n.no, {
+        className: 'no btn btn-danger btn-sm'
+      });
 
-    no.onclick = function() {
-      _this.closeConfirm(overlay);
-    };
-
-    yes.onclick = function() {
-      yesAction();
-      _this.closeConfirm(overlay);
-    };
-
-    let btnWrap = m('div', [no, yes], {className: 'button-wrap'});
-
-    className = 'form-builder-dialog ' + className;
-
-    let miniModal = m('div', [message, btnWrap], {className});
-    if (!coords) {
-      const dE = document.documentElement;
-      coords = {
-        pageX: Math.max(dE.clientWidth, window.innerWidth || 0) / 2,
-        pageY: Math.max(dE.clientHeight, window.innerHeight || 0) / 2
+      no.onclick = function() {
+        _this.closeConfirm(overlay);
       };
-      miniModal.style.position = 'fixed';
-    } else {
-      miniModal.classList.add('positioned');
+
+      yes.onclick = function() {
+        yesAction();
+        _this.closeConfirm(overlay);
+      };
+
+      let btnWrap = m('div', [no, yes], {className: 'button-wrap'});
+
+      className = 'form-builder-dialog ' + className;
+
+      let miniModal = m('div', [message, btnWrap], {className});
+      if (!coords) {
+        const dE = document.documentElement;
+        coords = {
+          pageX: Math.max(dE.clientWidth, window.innerWidth || 0) / 2,
+          pageY: Math.max(dE.clientHeight, window.innerHeight || 0) / 2
+        };
+        miniModal.style.position = 'fixed';
+      } else {
+        miniModal.classList.add('positioned');
+      }
+
+      miniModal.style.left = coords.pageX + 'px';
+      miniModal.style.top = coords.pageY + 'px';
+
+      document.body.appendChild(miniModal);
+
+      yes.focus();
+      return miniModal;
     }
-
-    miniModal.style.left = coords.pageX + 'px';
-    miniModal.style.top = coords.pageY + 'px';
-
-    document.body.appendChild(miniModal);
-
-    yes.focus();
-    return miniModal;
   }
 
   /**
@@ -808,10 +810,10 @@ export default class Helpers {
     $(window).scroll(function(evt) {
       let scrollTop = $(evt.target).scrollTop();
       const offsetDefaults = {
-        top: 5,
+        top: 55,
         bottom: 'auto',
         right: 'auto',
-        left: cbPosition.left
+        left: (($(window).width() > 1024) ? cbPosition.left-8 : cbPosition.left),
       };
 
       let offset = Object.assign(
@@ -1023,24 +1025,6 @@ export default class Helpers {
       className: 'clear-all btn btn-danger',
       events: {
         click: _this.confirmRemoveAll.bind(_this)
-      }
-    }, {
-      type: 'button',
-      label: 'viewJSON',
-      id: 'data',
-      className: 'btn btn-default',
-      events: {
-        click: _this.showData.bind(_this)
-      }
-    }, {
-      type: 'button',
-      id: 'save',
-      className: 'btn btn-primary save-template',
-      events: {
-        click: evt => {
-          _this.save();
-          config.opts.onSave(evt, _this.data.formData);
-        }
       }
     }].concat(options.actionButtons);
     config.opts = Object.assign({}, {actionButtons}, opts);

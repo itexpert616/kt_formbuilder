@@ -238,5 +238,4 @@ export default class controlFineUploader extends controlText {
 
 // register fineuploader as a subtype to the 'file' type control (defined in text.js)
 // also register the default file uploader as a subtype too so it appears in the dropdown
-controlText.register('file', controlText, 'file');
 controlText.register('fineuploader', controlFineUploader, 'file');

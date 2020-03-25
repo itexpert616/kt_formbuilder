@@ -452,8 +452,6 @@ const FormBuilder = function(opts, element) {
       'description',
       'placeholder',
       'className',
-      'name',
-      'access',
       'value'
     ];
     let noValFields = [
@@ -484,26 +482,28 @@ const FormBuilder = function(opts, element) {
         'description',
         'toggle',
         'inline',
-        'className',
-        'name',
-        'access',
-        'other',
         'options',
       ],
       text: defaultAttrs.concat([
         'subtype',
         'maxlength',
       ]),
-      date: defaultAttrs,
-      file: defaultAttrs.concat([
+      date: [
+        'required',
+        'label',
+        'description',
+        'className',
+        'value',
+      ],
+      file: [
+        'label',
+        'description',
+        'className',
         'subtype',
-        'multiple'
-      ]),
+      ],
       header: [
         'label',
-        'subtype',
-        'className',
-        'access',
+        'subtype'
       ],
       hidden: [
         'name',
@@ -513,16 +513,12 @@ const FormBuilder = function(opts, element) {
       paragraph: [
         'label',
         'subtype',
-        'className',
-        'access',
       ],
       number: defaultAttrs.concat([
         'min',
         'max',
-        'step',
       ]),
       select: defaultAttrs.concat([
-        'multiple',
         'options',
       ]),
       textarea: defaultAttrs.concat([
@@ -946,6 +942,32 @@ const FormBuilder = function(opts, element) {
     let noMakeAttr = [];
 
     if (!noMakeAttr.some(elem => elem === true)) {
+  //     var i0 = {/////mobile error fix
+  //         name: A,
+  //         placeholder: o,
+  //         className: "fld-" + A + " form-control",
+  //         id: A + "-" + y.lastID
+  //         // onclick: " $(this).focus(); $(this).html(''); $('#" + y.lastID +" .field-label').text('');"
+  //     },
+  //     s = D("label", r, {
+  //         for: i0.id
+  //     }).outerHTML;
+  // // var i = {
+  // //         name: A,
+  // //         placeholder: o,
+  // //         className: "fld-" + A + " form-control",
+  // //         id: A + "-" + y.lastID
+  // //     },
+  // //     s = D("label", r, {
+  // //         for: i.id
+  // //     }).outerHTML;
+  // // "label" === A ? (i.contenteditable = !0, n += D("div", e, i).outerHTML) : (i.value = e, i.type = "text", n += "<input " + g.default.attrString(i) + ">");
+  // // var a = '<div class="input-wrap">' + n + "</div>",
+  // //     l = "block";
+  // // "value" === A && (l = t.subtype && "quill" === t.subtype && "none"), n = D("div", [s, a], {
+  // //     className: "form-group " + A + "-wrap",
+  // //     style: "display: " + l
+  // // })
       let inputConfig = {
         name: attribute,
         placeholder: placeholder,
@@ -1111,6 +1133,7 @@ const FormBuilder = function(opts, element) {
           className: 'option-' + prop,
           value: optionData[prop],
           name: name + '-option'
+          // onclick: " $(this).focus(); $(this).val('');"/////mobile error fix
         };
 
         attrs.placeholder = i18n[`placeholder.${prop}`] || '';

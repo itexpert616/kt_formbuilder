@@ -59,7 +59,7 @@ export const defaultOptions = {
       stickyControls: {
         enable: true,
         offset: {
-          top: 5,
+          top: 205,
           bottom: 'auto',
           right: 'auto'
         }
@@ -121,7 +121,7 @@ export const defaultI18n = {
           fieldRemoveWarning: 'Are you sure you want to remove this field?',
           fileUpload: 'File Upload',
           formUpdated: 'Form Updated',
-          getStarted: 'Drag a field from the right to this area',
+          getStarted: 'Drag a form element to begin building your form.',
           header: 'Header',
           hide: 'Edit',
           hidden: 'Hidden Input',
@@ -173,6 +173,7 @@ export const defaultI18n = {
           select: 'Select',
           selectColor: 'Select Color',
           selectionsMessage: 'Allow Multiple Selections',
+          signature: "Signature",
           size: 'Size',
           'size.xs': 'Extra Small',
           'size.sm': 'Small',
