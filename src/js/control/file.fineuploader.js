@@ -75,7 +75,7 @@ export default class controlFineUploader extends controlText {
           }`
       }
     ];
-    this.handler = this.classConfig.handler || '/upload';
+    this.handler = this.classConfig.handler || 'fineuploader/php-traditional-server/endpoint.php';
     ['js', 'css', 'handler'].forEach(key => delete this.classConfig[key]);
 
     // fineuploader template that needs to be defined for the UI
@@ -179,7 +179,7 @@ export default class controlFineUploader extends controlText {
     // deep copy merge in passed class configuration over any conflicting defaults
     let config = $.extend(true, {
       request: {
-        endpoint: this.handler
+        endpoint: this.handler + (-1 == this.handler.indexOf('?') ? '?' : '&') + 'form_id=' + $('#pass_form_id').val() + '&revision_number=' + $('#pass_revision_number').val()
       },
       deleteFile: {
         enabled: true,
@@ -228,6 +228,36 @@ export default class controlFineUploader extends controlText {
             successful.push(upload.name);
           }
           input.val(successful.join(', '));
+        },
+        onComplete: function(id, fileName, responseJSON, xhr) {
+            console.log(responseJSON);
+            const s3Path = responseJSON.uuid;
+            const s3Url = responseJSON.s3_path;
+            const curPaths = $('#s3_path').val();
+            const curUrl = $('#s3_url').val();
+            const newPaths = (!curPaths) ? s3Path : curPaths + ',' + s3Path;
+            const newUrl = (!curUrl) ? s3Url : curUrl + ',' + s3Url;
+            $('#s3_path').val(newPaths);
+            $('#s3_url').val(newUrl);
+        },
+        onSubmitDelete: function(id) {
+            const itemID = '.qq-file-id-' + id;
+            const listItem = $(itemID);
+            const index = $('li.qq-upload-success').index( listItem );
+            let arrPaths = $('#s3_path').val().split(',');
+            let s3Url = $('#s3_url').val().split(',');
+            s3Url.splice(index, 1);
+            const delPath = arrPaths[index];
+            arrPaths.splice(index, 1);
+            // console.log(del_path);
+            $('#s3_path').val(arrPaths.join(','));
+            $('#s3_url').val(s3Url.join(','));
+            this.setDeleteFileParams({s3_path: delPath}, id);
+        },
+        onDeleteComplete: function(id, xhr, error) {
+            // console.log(xhr);
+            // var path = responseJSON.s3path;
+            // var current_path = $('#s3path').val();
         }
       },
       template: this.fineTemplate
