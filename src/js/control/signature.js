@@ -1,4 +1,5 @@
 import control from '../control';
+import utils from '../utils';
 
 /**
  * Button class
