@@ -12,6 +12,7 @@ export const defaultOptions = {
         'header',
         'hidden',
         'paragraph',
+        'signature',
         'number',
         'radio-group',
         'select',

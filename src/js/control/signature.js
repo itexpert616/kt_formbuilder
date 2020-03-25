@@ -4,7 +4,7 @@ import control from '../control';
  * Button class
  * Output a <button>Label</button> form element
  */
-export default class controlButton extends control {
+export default class controlSignature extends control {
 
   /**
    * build a text DOM element, supporting other jquery text form-control's
@@ -18,5 +18,5 @@ export default class controlButton extends control {
 }
 
 // register the following controls
-control.register('signature', controlButton);
-control.register(['canvas'], controlButton, 'signature');
+control.register('signature', controlSignature);
+control.register(['canvas'], controlSignature, 'signature');

@@ -3,6 +3,7 @@ import controlButton from './button';
 import controlCustom from './custom';
 import controlHidden from './hidden';
 import controlParagraph from './paragraph';
+import controlSignature from './signature';
 import controlSelect from './select';
 import controlText from './text';
 import controlFineUploader from './file.fineuploader';
@@ -16,6 +17,7 @@ export default {
   controlCustom,
   controlHidden,
   controlParagraph,
+  controlSignature,
   controlSelect,
   controlText,
   controlFineUploader,
