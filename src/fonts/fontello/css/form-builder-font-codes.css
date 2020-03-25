@@ -1,4 +1,5 @@
 
+.icon-signature:before { content: '\e809'; }
 .icon-autocomplete:before { content: '\e800'; } /* '' */
 .icon-date:before { content: '\e801'; } /* '' */
 .icon-checkbox:before { content: '\e802'; } /* '' */

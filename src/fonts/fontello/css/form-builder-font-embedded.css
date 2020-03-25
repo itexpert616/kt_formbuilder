@@ -52,6 +52,7 @@
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
+.icon-signature:before { content: '\e809'; }
 .icon-autocomplete:before { content: '\e800'; } /* '' */
 .icon-date:before { content: '\e801'; } /* '' */
 .icon-checkbox:before { content: '\e802'; } /* '' */

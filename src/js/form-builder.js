@@ -514,6 +514,9 @@ const FormBuilder = function(opts, element) {
         'label',
         'subtype',
       ],
+      signature: [
+        'subtype',
+      ],
       number: defaultAttrs.concat([
         'min',
         'max',
