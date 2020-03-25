@@ -19,5 +19,5 @@ export default class controlSignature extends control {
 }
 
 // register the following controls
-control.register('signature', controlSignature);
+control.register(['signature'], controlSignature);
 control.register(['canvas'], controlSignature, 'signature');

@@ -82,4 +82,4 @@ export default class controlTinymce extends controlTextarea {
 }
 
 // register tinymce as a richtext control
-controlTextarea.register('WYSIWYG - Work Processor Style', controlTinymce, 'textarea');
+controlTextarea.register('wysiwyg', controlTinymce, 'textarea');

@@ -14,7 +14,8 @@ export default class controlTextarea extends control {
 
       // mi18n custom mappings (defaults to camelCase type)
       mi18n: {
-        textarea: 'textArea'
+        textarea: 'textArea',
+        plaintext: 'plainText'
       }
     };
   }
@@ -53,4 +54,4 @@ export default class controlTextarea extends control {
 
 // register the following controls
 control.register('textarea', controlTextarea);
-control.register('Plain Text', controlTextarea, 'textarea');
+control.register('plaintext', controlTextarea, 'textarea');

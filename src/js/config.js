@@ -90,7 +90,8 @@ export const defaultI18n = {
       langs: [
         'en-US'
       ],
-      preloaded: {
+      locale: 'en-US',
+      override: {
         'en-US': {
           addOption: 'Add Option +',
           allFieldsRemoved: 'All fields were removed.',
@@ -98,6 +99,7 @@ export const defaultI18n = {
           autocomplete: 'Autocomplete',
           button: 'Button',
           cannotBeEmpty: 'This field cannot be empty',
+          canvas: 'Canvas',
           checkboxGroup: 'Checkbox Group',
           checkbox: 'Checkbox',
           checkboxes: 'Checkboxes',
@@ -116,6 +118,7 @@ export const defaultI18n = {
           editNames: 'Edit Names',
           editorTitle: 'Form Elements',
           editXML: 'Edit XML',
+          email: 'Email',
           enableOther: 'Enable &quot;Other&quot;',
           enableOtherMsg: 'Let users to enter an unlisted option',
           fieldNonEditable: 'This field cannot be edited.',
@@ -130,9 +133,11 @@ export const defaultI18n = {
           inlineDesc: 'Display {type} inline',
           label: 'Label',
           labelEmpty: 'Field Label cannot be empty',
+          large: 'Large',
           limitRole: 'Limit access to one or more of the following roles:',
           mandatory: 'Mandatory',
           maxlength: 'Max Length',
+          medium: 'Medium',
           minOptionMessage: 'This field requires a minimum of 2 options',
           minSelectionRequired: 'Minimum {min} selections required',
           multipleFiles: 'Multiple Files',
@@ -149,6 +154,7 @@ export const defaultI18n = {
           optionValuePlaceholder: 'Value',
           optionEmpty: 'Option value required',
           other: 'Other',
+          p: 'P',
           paragraph: 'Paragraph',
           placeholder: 'Placeholder',
           'placeholder.value': 'Value',
@@ -159,6 +165,7 @@ export const defaultI18n = {
           'placeholder.placeholder': '',
           'placeholder.className': 'space separated classes',
           'placeholder.password': 'Enter your password',
+          plainText: 'Plain Text',
           preview: 'Preview',
           radioGroup: 'Radio Group',
           radio: 'Radio',
@@ -180,6 +187,7 @@ export const defaultI18n = {
           'size.sm': 'Small',
           'size.m': 'Default',
           'size.lg': 'Large',
+          small: 'Small',
           style: 'Style',
           'styles.btn.default': 'Default',
           'styles.btn.danger': 'Danger',
@@ -195,7 +203,8 @@ export const defaultI18n = {
           value: 'Value',
           viewJSON: '{  }',
           viewXML: '&lt;/&gt;',
-          yes: 'Yes'
+          yes: 'Yes',
+          wysiwyg: 'WYSIWYG - Work Processor Style'
         }
       }
     };

@@ -141,6 +141,16 @@ jQuery(function($) {
     // controlPosition: 'left'
     // disabledAttrs
   };
+
+  
+  var fbOptions1 = {
+    actionButtons:actionButtons,
+    fieldRemoveWarn: true,
+    disableInjectedStyle: false,
+    controlOrder: ['header','text','textarea','checkbox-group','date','signature','paragraph','number','radio-group','select','file'],
+    disableFields: ['autocomplete','button','hidden','file']
+  };
+
   var formData = window.sessionStorage.getItem('formData');
   var editing = true;
 
@@ -159,7 +169,7 @@ jQuery(function($) {
 
   var setFormData = '[{"type":"text","label":"Full Name","subtype":"text","className":"form-control","name":"text-1476748004559"},{"type":"select","label":"Occupation","className":"form-control","name":"select-1476748006618","values":[{"label":"Street Sweeper","value":"option-1","selected":true},{"label":"Moth Man","value":"option-2"},{"label":"Chemist","value":"option-3"}]},{"type":"textarea","label":"Short Bio","rows":"5","className":"form-control","name":"textarea-1476748007461"}]';
 
-  var formBuilder = $('.build-wrap').formBuilder(fbOptions);
+  var formBuilder = $('.build-wrap').formBuilder(fbOptions1);
   var fbPromise = formBuilder.promise;
 
   fbPromise.then(function(fb) {

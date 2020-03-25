@@ -31,4 +31,4 @@ export default class controlParagraph extends control {
 // register the following controls
 control.register(['paragraph', 'header'], controlParagraph);
 control.register(['p'], controlParagraph, 'paragraph');
-control.register(['Large', 'Medium', 'Small'], controlParagraph, 'header');
+control.register(['large', 'medium', 'small'], controlParagraph, 'header');
