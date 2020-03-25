@@ -524,7 +524,8 @@ export default class Helpers {
    * @return {Object}            Reference to the modal
    */
   confirm(message, yesAction, coords = false, className = '') {
-    if(!$('.form-builder-overlay.visible').length){/////mobile warning alert error fix
+    if(!$('.form-builder-overlay.visible').length) {
+      // mobile warning alert error fix
       const _this = this;
       let i18n = mi18n.current;
       let overlay = _this.showOverlay();

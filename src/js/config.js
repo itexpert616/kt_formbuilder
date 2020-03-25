@@ -173,7 +173,7 @@ export const defaultI18n = {
           select: 'Select',
           selectColor: 'Select Color',
           selectionsMessage: 'Allow Multiple Selections',
-          signature: "Signature",
+          signature: 'Signature',
           size: 'Size',
           'size.xs': 'Extra Small',
           'size.sm': 'Small',
