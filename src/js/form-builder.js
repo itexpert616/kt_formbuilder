@@ -523,6 +523,7 @@ const FormBuilder = function(opts, element) {
       ]),
       select: defaultAttrs.concat([
         'options',
+        'other',
       ]),
       textarea: defaultAttrs.concat([
         'subtype',

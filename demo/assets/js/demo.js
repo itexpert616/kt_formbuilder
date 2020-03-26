@@ -178,6 +178,15 @@ jQuery(function($) {
       clearFields: fb.actions.clearFields,
       getData: function() {
         console.log(fb.actions.getData());
+        
+        const formData = fb.actions.getData();
+        toggleEdit();
+        $('.render-wrap').formRender({
+          formData: formData,
+          templates: templates
+        });
+        window.sessionStorage.setItem('formData', JSON.stringify(formData));
+
       },
       setData: function() {
         fb.actions.setData(setFormData);

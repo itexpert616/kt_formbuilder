@@ -318,6 +318,11 @@
       padding: 2px;
       display: inline-block;
     }
+
+    .fb-select-other-required-span {
+      margin-left: 4px;
+      font-size: 14px;
+    }
   }
 
   .required-asterisk {
@@ -339,6 +344,10 @@
 
   .other-val {
     margin-left: 5px;
+    display: none;
+  }
+
+  .fb-select-other-wrapper {
     display: none;
   }
 

@@ -95,48 +95,78 @@ export default class controlSelect extends control {
       }
 
       // if configured to display an 'other' option, prepare the elements
-      if (!isSelect && other) {
-        let otherOptionAttrs = {
-          id: `${data.id}-other`,
-          className: `${data.className} other-option`,
-          value: '',
-          events: {
-            click: () => this.otherOptionCB(otherOptionAttrs.id)
-          }
-        };
-        // let label = mi18n.current.other;
-        let wrapperClass = optionType;
-        if (inline) {
-          wrapperClass += '-inline';
-        }
-
-        let optionAttrs = Object.assign({}, data, otherOptionAttrs);
-        optionAttrs.type = optionType;
-
-        let otherValAttrs = {
-          type: 'text',
-          events: {
-            input: evt => {
-              const otherInput = evt.target;
-              const other = otherInput.previousElementSibling;
-              other.value = otherInput.value;
+      if (other) {
+        if (isSelect) {
+          let label = 'Other';
+          let otherOptionAttrs = {
+            id: `${data.id}-other`,
+            className: `${data.className} other-option`,
+            value: 'Other'
+          };
+          let o = this.markup('option', document.createTextNode(label), otherOptionAttrs);
+          options.push(o);
+        } else {
+          let otherOptionAttrs = {
+            id: `${data.id}-other`,
+            className: `${data.className} other-option`,
+            value: '',
+            events: {
+              click: () => this.otherOptionCB(otherOptionAttrs.id)
             }
-          },
-          id: `${otherOptionAttrs.id}-value`,
-          className: 'other-val'
-        };
-        let otherInputs = [
-          this.markup('input', null, optionAttrs),
-          document.createTextNode('Other'),
-          this.markup('input', null, otherValAttrs)
-        ];
-        let inputLabel = this.markup('label', otherInputs, {for: optionAttrs.id});
-        let wrapper = this.markup('div', inputLabel, {className: wrapperClass});
-        options.push(wrapper);
+          };
+          // let label = mi18n.current.other;
+          let wrapperClass = optionType;
+          if (inline) {
+            wrapperClass += '-inline';
+          }
+
+          let optionAttrs = Object.assign({}, data, otherOptionAttrs);
+          optionAttrs.type = optionType;
+
+          let otherValAttrs = {
+            type: 'text',
+            events: {
+              input: evt => {
+                const otherInput = evt.target;
+                const other = otherInput.previousElementSibling;
+                other.value = otherInput.value;
+              }
+            },
+            id: `${otherOptionAttrs.id}-value`,
+            className: 'other-val'
+          };
+          let otherInputs = [
+            this.markup('input', null, optionAttrs),
+            document.createTextNode('Other'),
+            this.markup('input', null, otherValAttrs)
+          ];
+          let inputLabel = this.markup('label', otherInputs, {for: optionAttrs.id});
+          let wrapper = this.markup('div', inputLabel, {className: wrapperClass});
+          options.push(wrapper);
+        }
       }
     }
 
     // build & return the DOM elements
+    if (other) {
+      if (type == 'select') {
+        let otherOptionId = `${data.id}-other`;
+        let select = this.markup(optionType, options, {
+          ...data,
+          events: {
+            change: e => this.selectedOptionChanged(e, otherOptionId)
+          }
+        });
+
+        let otherReqiredSpan = this.markup('span', '*', {className: 'fb-required fb-select-other-required-span'});
+        let otherLabel = this.markup('label', ['Other', otherReqiredSpan], {className: 'fb-select-other-label field-label'});
+        let otherInput = this.markup('input', null, {id: `${otherOptionId}-input`, className: 'form-control'});
+        let otherWrapper = this.markup('div', [otherLabel, otherInput], {id: `${otherOptionId}-wrapper`, className: 'fb-select-other-wrapper'});
+
+        return this.markup('div', [select, otherWrapper], {className: data.className + '-wrapper'});
+      }
+    }
+
     if (type == 'select') {
       return this.markup(optionType, options, data);
     } else {
@@ -192,6 +222,23 @@ export default class controlSelect extends control {
       otherInputValue.style.display = 'inline-block';
     } else {
       otherInputValue.style.display = 'none';
+    }
+  }
+
+  /**
+   * Callback for select 'other' option.
+   * Toggles the hidden text area for "other" option.
+   * @param  {Object} e event
+   * @param  {String} otherOptionId id of the "other" option
+   */
+  selectedOptionChanged(e, otherOptionId) {
+    const curId = $(e.target).find(':selected').attr('id');
+    const otherInputWrapper = document.getElementById(`${otherOptionId}-wrapper`);
+
+    if (curId == otherOptionId) {
+      otherInputWrapper.style.display = 'block';
+    } else {
+      otherInputWrapper.style.display = 'none';
     }
   }
 }

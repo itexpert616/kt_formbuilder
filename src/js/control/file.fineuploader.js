@@ -230,7 +230,7 @@ export default class controlFineUploader extends controlText {
           input.val(successful.join(', '));
         },
         onComplete: function(id, fileName, responseJSON, xhr) {
-            console.log(responseJSON);
+            // console.log(responseJSON);
             const s3Path = responseJSON.uuid;
             const s3Url = responseJSON.s3_path;
             const curPaths = $('#s3_path').val();
