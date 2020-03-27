@@ -168,6 +168,7 @@ jQuery(function($) {
   }
 
   var setFormData = '[{"type":"text","label":"Full Name","subtype":"text","className":"form-control","name":"text-1476748004559"},{"type":"select","label":"Occupation","className":"form-control","name":"select-1476748006618","values":[{"label":"Street Sweeper","value":"option-1","selected":true},{"label":"Moth Man","value":"option-2"},{"label":"Chemist","value":"option-3"}]},{"type":"textarea","label":"Short Bio","rows":"5","className":"form-control","name":"textarea-1476748007461"}]';
+  var setFormData1 = '[{"type":"header","subtype":"large","label":"Test Parent Edit Notification","name":"header_test_parent_edit_notification"},{"type":"date","label":"Date Field","className":"form-control","name":"date_date_field","value":"2019-12-18"},{"type":"number","required":true,"label":"Number","className":"form-control","name":"number_number","value":"3"},{"type":"select","label":"Select","className":"form-control","other":true,"values":[{"label":"Option 1","value":"option_1","selected":true},{"label":"Option 2","value":"option_2"},{"label":"Option 3","value":"option_3"}],"name":"select_select","otherName":"select_select_other","value":"option_3","otherValue":"1111111"},{"type":"textarea","subtype":"plaintext","required":true,"label":"Text Area","className":"form-control","name":"textarea_text_area","value":"asdfasdfasd asdasdf asd asdasdf asd fa sda sdf"},{"type":"signature","subtype":"canvas","name":"sign"},{"type":"text","label":"Text Field","className":"form-control","subtype":"text","name":"text_text_field","value":""},{"type":"text","label":"Text Field","className":"form-control","subtype":"text","name":"text_text_field1","value":""}]';
 
   var formBuilder = $('.build-wrap').formBuilder(fbOptions1);
   var fbPromise = formBuilder.promise;
@@ -182,7 +183,7 @@ jQuery(function($) {
         const formData = fb.actions.getData();
         toggleEdit();
         $('.render-wrap').formRender({
-          formData: formData,
+          formData: setFormData1,
           templates: templates
         });
         window.sessionStorage.setItem('formData', JSON.stringify(formData));

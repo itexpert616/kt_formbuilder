@@ -524,6 +524,9 @@ const FormBuilder = function(opts, element) {
       select: defaultAttrs.concat([
         'options',
         'other',
+        'otherLabel',
+        'otherPlaceholder',
+        'otherValue',
       ]),
       textarea: defaultAttrs.concat([
         'subtype',
@@ -621,6 +624,10 @@ const FormBuilder = function(opts, element) {
         first: i18n.enableOther,
         second: i18n.enableOtherMsg
       }),
+      otherLabel: () => textAttribute('otherLabel', values),
+      otherName: () => textAttribute('otherName', values),
+      otherPlaceholder: () => textAttribute('otherPlaceholder', values),
+      otherValue: () => textAttribute('otherValue', values),
       options: () => fieldOptions(values)
     };
     let key;
@@ -1267,7 +1274,16 @@ let stageOnChangeSelectors = [
     if (e.target.classList.contains('other-option')) {
       return;
     }
+
     let field = utils.closest(e.target, '.form-field');
+    if (e.target.classList.contains('select-other-value')) {
+      let fieldVal = document.getElementById('otherValue-' + field.id);
+      if(fieldVal) {
+        fieldVal.value = e.target.value;
+      }
+      return;
+    }
+
     let optionTypes = ['select', 'checkbox-group', 'radio-group'];
     if (utils.inArray(field.type, optionTypes)) {
       let options = field.getElementsByClassName('option-value');
@@ -1437,6 +1453,7 @@ let stageOnChangeSelectors = [
     }
 
     let name = $firstOption.attr('name');
+    name = name.substr(0, name.length-7);
 
     $('.sortable-options', $optionWrap)
     .append(selectFieldOptions(name, false, isMultiple));

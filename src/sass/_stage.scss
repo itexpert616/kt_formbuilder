@@ -320,7 +320,7 @@
     }
 
     .fb-select-other-required-span {
-      margin-left: 4px;
+      margin-left: 4px !important;
       font-size: 14px;
     }
   }
@@ -347,8 +347,12 @@
     display: none;
   }
 
-  .fb-select-other-wrapper {
+  .select-other-val {
     display: none;
+  }
+
+  .fb-select-other-wrapper {
+      margin-top: 15px;
   }
 
   .field-actions {

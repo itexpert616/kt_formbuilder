@@ -1,4 +1,5 @@
 import control from '../control';
+import utils from '../utils';
 
 /**
  * Text input class
@@ -25,7 +26,7 @@ export default class controlSelect extends control {
    */
   build() {
     let options = [];
-    let {values, value, placeholder, type, inline, other, toggle, ...data} = this.config;
+    let {values, value, placeholder, type, inline, other, otherLabel, otherName, otherPlaceholder, otherValue, toggle, ...data} = this.config;
     let optionType = type.replace('-group', '');
     let isSelect = type === 'select';
     if (data.multiple || type === 'checkbox-group') {
@@ -57,13 +58,15 @@ export default class controlSelect extends control {
         optionAttrs.id = `${data.id}-${i}`;
 
         // don't select this option if a placeholder is defined
-        if (!optionAttrs.selected || placeholder) {
+        if (!optionAttrs.selected || placeholder || typeof value !== 'undefined') {
           delete optionAttrs.selected;
+          delete option.selected;
         }
 
         // if a value is defined at select level, select this attribute
         if (typeof value !== 'undefined' && optionAttrs.value === value) {
           optionAttrs.selected = true;
+          option.selected = true;
         }
 
         if (isSelect) {
@@ -96,16 +99,15 @@ export default class controlSelect extends control {
 
       // if configured to display an 'other' option, prepare the elements
       if (other) {
-        if (isSelect) {
-          let label = 'Other';
-          let otherOptionAttrs = {
-            id: `${data.id}-other`,
-            className: `${data.className} other-option`,
-            value: 'Other'
-          };
-          let o = this.markup('option', document.createTextNode(label), otherOptionAttrs);
-          options.push(o);
-        } else {
+        if (!isSelect) {
+        //   let label = 'Other';
+        //   let otherOptionAttrs = {
+        //     id: `${data.id}-other`,
+        //     value: 'Other'
+        //   };
+        //   let o = this.markup('option', document.createTextNode(label), otherOptionAttrs);
+        //   options.push(o);
+        // } else {
           let otherOptionAttrs = {
             id: `${data.id}-other`,
             className: `${data.className} other-option`,
@@ -150,18 +152,28 @@ export default class controlSelect extends control {
     // build & return the DOM elements
     if (other) {
       if (type == 'select') {
-        let otherOptionId = `${data.id}-other`;
+        const lastOptionId = `${data.id}-${values.length-1}`;
+        const lastOptionSelected = values[values.length-1].selected;
+
         let select = this.markup(optionType, options, {
           ...data,
           events: {
-            change: e => this.selectedOptionChanged(e, otherOptionId)
+            change: e => this.selectedOptionChanged(e, lastOptionId)
           }
         });
 
         let otherReqiredSpan = this.markup('span', '*', {className: 'fb-required fb-select-other-required-span'});
-        let otherLabel = this.markup('label', ['Other', otherReqiredSpan], {className: 'fb-select-other-label field-label'});
-        let otherInput = this.markup('input', null, {id: `${otherOptionId}-input`, className: 'form-control'});
-        let otherWrapper = this.markup('div', [otherLabel, otherInput], {id: `${otherOptionId}-wrapper`, className: 'fb-select-other-wrapper'});
+        let otherInputLabel = this.markup('label', [otherLabel, otherReqiredSpan], {className: 'fb-select-other-label field-label'});
+
+        const otherInputType = lastOptionSelected ? 'text' : 'hidden';
+        let otherInputAttr = {type: otherInputType, id: `${lastOptionId}-input`, className: 'form-control select-other-value', value: otherValue, name: otherName, placeholder: otherPlaceholder};
+        let otherInput = this.markup('input', null, utils.trimObj(otherInputAttr));
+
+        const otherWrapperClass = ['fb-select-other-wrapper'];
+        if (!lastOptionSelected) {
+          otherWrapperClass.push('select-other-val');
+        }
+        let otherWrapper = this.markup('div', [otherInputLabel, otherInput], {id: `${lastOptionId}-wrapper`, className: otherWrapperClass.join(' ')});
 
         return this.markup('div', [select, otherWrapper], {className: data.className + '-wrapper'});
       }
@@ -233,11 +245,14 @@ export default class controlSelect extends control {
    */
   selectedOptionChanged(e, otherOptionId) {
     const curId = $(e.target).find(':selected').attr('id');
+    const otherInput = document.getElementById(`${otherOptionId}-input`);
     const otherInputWrapper = document.getElementById(`${otherOptionId}-wrapper`);
 
     if (curId == otherOptionId) {
+      otherInput.type = 'text';
       otherInputWrapper.style.display = 'block';
     } else {
+      otherInput.type = 'hidden';
       otherInputWrapper.style.display = 'none';
     }
   }
