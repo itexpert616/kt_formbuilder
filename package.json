@@ -172,7 +172,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^3.1.11"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
