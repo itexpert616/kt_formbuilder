@@ -204,7 +204,8 @@
       "quotes": [
         2,
         "single"
-      ]
+      ],
+      "linebreak-style": ["error", "windows"]
     }
   },
   "engines": {}

@@ -10,16 +10,19 @@
   color: $error;
 }
 
-.other-val {
+.other-val,
+.secOth-val {
   margin-left: 5px;
   display: none;
 }
 
-.select-other-val {
+.select-other-val,
+.select-secOth-val {
   display: none;
 }
 
-.fb-select-other-wrapper {
+.fb-select-other-wrapper,
+.fb-select-secOth-wrapper {
     margin-top: 15px;
 }
 

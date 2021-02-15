@@ -26,7 +26,7 @@ export default class controlSelect extends control {
    */
   build() {
     let options = [];
-    let {values, value, placeholder, type, inline, other, otherLabel, otherName, otherPlaceholder, otherValue, toggle, ...data} = this.config;
+    let {values, value, placeholder, type, inline, other, otherLabel, otherName, otherPlaceholder, otherValue, secOth, secOthLabel, secOthName, secOthPlaceholder, secOthValue, toggle, ...data} = this.config;
     let optionType = type.replace('-group', '');
     let isSelect = type === 'select';
     if (data.multiple || type === 'checkbox-group') {
@@ -150,32 +150,49 @@ export default class controlSelect extends control {
     }
 
     // build & return the DOM elements
-    if (other) {
+    if (other || secOth) {
       if (type == 'select') {
-        const lastOptionId = `${data.id}-${values.length-1}`;
-        const lastOptionSelected = values[values.length-1].selected;
+        const otherOptionId = other ? `${data.id}-${values.length-1}` : null;
+        const secOthOptionId = secOth ? `${data.id}-${values.length-2}` : null;
 
-        let select = this.markup(optionType, options, {
+        const select = this.markup(optionType, options, {
           ...data,
           events: {
-            change: e => this.selectedOptionChanged(e, lastOptionId)
+            change: e => this.selectedOptionChanged(e, otherOptionId, secOthOptionId)
           }
         });
 
-        let otherReqiredSpan = this.markup('span', '*', {className: 'fb-required fb-select-other-required-span'});
-        let otherInputLabel = this.markup('label', [otherLabel, otherReqiredSpan], {className: 'fb-select-other-label field-label'});
-
-        const otherInputType = lastOptionSelected ? 'text' : 'hidden';
-        let otherInputAttr = {type: otherInputType, id: `${lastOptionId}-input`, className: 'form-control select-other-value', value: otherValue, name: otherName, placeholder: otherPlaceholder};
-        let otherInput = this.markup('input', null, utils.trimObj(otherInputAttr));
-
-        const otherWrapperClass = ['fb-select-other-wrapper'];
-        if (!lastOptionSelected) {
-          otherWrapperClass.push('select-other-val');
+        const elements = [select];
+        if (other) {
+          const otherOptionSelected = values[values.length-1].selected;
+          const otherReqiredSpan = this.markup('span', '*', {className: 'fb-required fb-select-other-required-span'});
+          const otherInputLabel = this.markup('label', [otherLabel, otherReqiredSpan], {className: 'fb-select-other-label field-label'});
+          const otherInputType = otherOptionSelected ? 'text' : 'hidden';
+          const otherInputAttr = {type: otherInputType, id: `${otherOptionId}-input`, className: 'form-control select-other-value', value: otherValue, name: otherName, placeholder: otherPlaceholder};
+          const otherInput = this.markup('input', null, utils.trimObj(otherInputAttr));
+          const otherWrapperClass = ['fb-select-other-wrapper'];
+          if (!otherOptionSelected) {
+            otherWrapperClass.push('select-other-val');
+          }
+          const otherWrapper = this.markup('div', [otherInputLabel, otherInput], {id: `${otherOptionId}-wrapper`, className: otherWrapperClass.join(' ')});
+          elements.push(otherWrapper);
         }
-        let otherWrapper = this.markup('div', [otherInputLabel, otherInput], {id: `${lastOptionId}-wrapper`, className: otherWrapperClass.join(' ')});
+        if (secOth) {
+          const secOthOptionSelected = values[values.length-2].selected;
+          const secOthReqiredSpan = this.markup('span', '*', {className: 'fb-required fb-select-secOth-required-span'});
+          const secOthInputLabel = this.markup('label', [secOthLabel, secOthReqiredSpan], {className: 'fb-select-secOth-label field-label'});
+          const secOthInputType = secOthOptionSelected ? 'text' : 'hidden';
+          const secOthInputAttr = {type: secOthInputType, id: `${secOthOptionId}-input`, className: 'form-control select-secOth-value', value: secOthValue, name: secOthName, placeholder: secOthPlaceholder};
+          const secOthInput = this.markup('input', null, utils.trimObj(secOthInputAttr));
+          const secOthWrapperClass = ['fb-select-secOth-wrapper'];
+          if (!secOthOptionSelected) {
+            secOthWrapperClass.push('select-secOth-val');
+          }
+          const secOthWrapper = this.markup('div', [secOthInputLabel, secOthInput], {id: `${secOthOptionId}-wrapper`, className: secOthWrapperClass.join(' ')});
+          elements.push(secOthWrapper);
+        }
 
-        return this.markup('div', [select, otherWrapper], {className: data.className + '-wrapper'});
+        return this.markup('div', elements, {className: data.className + '-wrapper'});
       }
     }
 
@@ -242,18 +259,33 @@ export default class controlSelect extends control {
    * Toggles the hidden text area for "other" option.
    * @param  {Object} e event
    * @param  {String} otherOptionId id of the "other" option
+   * @param  {String} secOtherOptionId id of the "sec other" option
    */
-  selectedOptionChanged(e, otherOptionId) {
+  selectedOptionChanged(e, otherOptionId, secOtherOptionId) {
     const curId = $(e.target).find(':selected').attr('id');
-    const otherInput = document.getElementById(`${otherOptionId}-input`);
-    const otherInputWrapper = document.getElementById(`${otherOptionId}-wrapper`);
 
-    if (curId == otherOptionId) {
-      otherInput.type = 'text';
-      otherInputWrapper.style.display = 'block';
-    } else {
-      otherInput.type = 'hidden';
-      otherInputWrapper.style.display = 'none';
+    if (otherOptionId !== null) {
+      const otherInput = document.getElementById(`${otherOptionId}-input`);
+      const otherInputWrapper = document.getElementById(`${otherOptionId}-wrapper`);
+      if (curId == otherOptionId) {
+        otherInput.type = 'text';
+        otherInputWrapper.style.display = 'block';
+      } else {
+        otherInput.type = 'hidden';
+        otherInputWrapper.style.display = 'none';
+      }
+    }
+
+    if (secOtherOptionId !== null) {
+      const secOthInput = document.getElementById(`${secOtherOptionId}-input`);
+      const secOthInputWrapper = document.getElementById(`${secOtherOptionId}-wrapper`);
+      if (curId == secOtherOptionId) {
+        secOthInput.type = 'text';
+        secOthInputWrapper.style.display = 'block';
+      } else {
+        secOthInput.type = 'hidden';
+        secOthInputWrapper.style.display = 'none';
+      }
     }
   }
 }

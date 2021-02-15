@@ -527,6 +527,10 @@ const FormBuilder = function(opts, element) {
         'otherLabel',
         'otherPlaceholder',
         'otherValue',
+        'secOth',
+        'secOthLabel',
+        'secOthPlaceholder',
+        'secOthValue',
       ]),
       textarea: defaultAttrs.concat([
         'subtype',
@@ -628,6 +632,14 @@ const FormBuilder = function(opts, element) {
       otherName: () => textAttribute('otherName', values),
       otherPlaceholder: () => textAttribute('otherPlaceholder', values),
       otherValue: () => textAttribute('otherValue', values),
+      secOth: () => boolAttribute('secOth', values, {
+        first: i18n.enableSecOth,
+        second: i18n.enableSecOthMsg
+      }),
+      secOthLabel: () => textAttribute('secOthLabel', values),
+      secOthName: () => textAttribute('secOthName', values),
+      secOthPlaceholder: () => textAttribute('secOthPlaceholder', values),
+      secOthValue: () => textAttribute('secOthValue', values),
       options: () => fieldOptions(values)
     };
     let key;
@@ -1274,10 +1286,17 @@ let stageOnChangeSelectors = [
     if (e.target.classList.contains('other-option')) {
       return;
     }
-
     let field = utils.closest(e.target, '.form-field');
     if (e.target.classList.contains('select-other-value')) {
       let fieldVal = document.getElementById('otherValue-' + field.id);
+      if(fieldVal) {
+        fieldVal.value = e.target.value;
+      }
+      return;
+    }
+    if (e.target.classList.contains('select-secOth-value')) {
+      console.log(222, e.target);
+      let fieldVal = document.getElementById('secOthValue-' + field.id);
       if(fieldVal) {
         fieldVal.value = e.target.value;
       }

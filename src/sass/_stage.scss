@@ -319,7 +319,8 @@
       display: inline-block;
     }
 
-    .fb-select-other-required-span {
+    .fb-select-other-required-span,
+    .fb-select-secOth-required-span {
       margin-left: 4px !important;
       font-size: 14px;
     }
@@ -342,16 +343,19 @@
     display: block;
   }
 
-  .other-val {
+  .other-val,
+  .secOther-val {
     margin-left: 5px;
     display: none;
   }
 
-  .select-other-val {
+  .select-other-val,
+  .select-secOth-val {
     display: none;
   }
 
-  .fb-select-other-wrapper {
+  .fb-select-other-wrapper,
+  .fb-select-secOth-wrapper {
       margin-top: 15px;
   }
 
@@ -622,7 +626,8 @@
       &.required-label,
       &.toggle-label,
       &.roles-label,
-      &.other-label {
+      &.other-label,
+      &.secOth-label {
         text-align: left;
         float: none;
         margin-bottom: -3px;
