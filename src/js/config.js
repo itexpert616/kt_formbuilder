@@ -122,7 +122,7 @@ export const defaultI18n = {
           enableOther: 'Other (1)',
           enableOtherMsg: 'Provide an "other" option for the last option in the list.',
           enableSecOth: 'Other (2)',
-          enableSecOthMsg: 'Provide an "other" option for the second last option in the list.',
+          enableSecOthMsg: 'Provide a second "other" option for the last option in the list.',
           fieldNonEditable: 'This field cannot be edited.',
           fieldRemoveWarning: 'Are you sure you want to remove this field?',
           fileUpload: 'File Upload',
