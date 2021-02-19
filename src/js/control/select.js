@@ -29,6 +29,7 @@ export default class controlSelect extends control {
     let {values, value, placeholder, type, inline, other, otherLabel, otherName, otherPlaceholder, otherValue, secOth, secOthLabel, secOthName, secOthPlaceholder, secOthValue, toggle, ...data} = this.config;
     let optionType = type.replace('-group', '');
     let isSelect = type === 'select';
+    let isCheckbox = type === 'checkbox-group';
     if (data.multiple || type === 'checkbox-group') {
       data.name = data.name + '[]';
     }
@@ -57,16 +58,28 @@ export default class controlSelect extends control {
         let {label = '', ...optionAttrs} = option;
         optionAttrs.id = `${data.id}-${i}`;
 
-        // don't select this option if a placeholder is defined
-        if (!optionAttrs.selected || placeholder || typeof value !== 'undefined') {
-          delete optionAttrs.selected;
-          delete option.selected;
-        }
+        if (isCheckbox) {
+          // don't select this option if a placeholder is defined
+          if (!optionAttrs.selected || placeholder) {
+            delete optionAttrs.selected;
+          }
 
-        // if a value is defined at select level, select this attribute
-        if (typeof value !== 'undefined' && optionAttrs.value === value) {
-          optionAttrs.selected = true;
-          option.selected = true;
+          // if a value is defined at select level, select this attribute
+          if (typeof value !== 'undefined' && optionAttrs.value === value) {
+            optionAttrs.selected = true;
+          }
+        } else {
+          // don't select this option if a placeholder is defined
+          if (!optionAttrs.selected || placeholder || typeof value !== 'undefined') {
+            delete optionAttrs.selected;
+            delete option.selected;
+          }
+
+          // if a value is defined at select level, select this attribute
+          if (typeof value !== 'undefined' && optionAttrs.value === value) {
+            optionAttrs.selected = true;
+            option.selected = true;
+          }
         }
 
         if (isSelect) {
