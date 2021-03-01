@@ -43,6 +43,11 @@ export default class controlTinymce extends controlTextarea {
     this.editorOptions = {
       height: 250,
       paste_data_images: true,
+      setup: function(editor) {
+        editor.on('change', function() {
+          editor.save();
+        });
+      },
       plugins: [
         'advlist autolink lists link image charmap print preview anchor',
         'searchreplace visualblocks code fullscreen',
