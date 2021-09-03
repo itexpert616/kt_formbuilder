@@ -1002,8 +1002,12 @@ const FormBuilder = function(opts, element) {
       }).outerHTML;
 
       if (attribute === 'label') {
-        inputConfig.contenteditable = true;
-        attributefield += m('div', attrVal, inputConfig).outerHTML;
+        if (utils.inArray(values.type, textArea)) {
+          attributefield += m('textarea', attrVal, inputConfig).outerHTML;
+        } else {
+          inputConfig.contenteditable = true;
+          attributefield += m('div', attrVal, inputConfig).outerHTML;
+        }
       } else {
         inputConfig.value = attrVal;
         inputConfig.type = 'text';
@@ -1260,6 +1264,7 @@ const FormBuilder = function(opts, element) {
       return false;
     }
   });
+
   $stage.on('dblclick', 'li.form-field, .field-label', (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -1276,7 +1281,7 @@ const FormBuilder = function(opts, element) {
     $valWrap.toggle(e.target.value !== 'quill');
   });
 
-let stageOnChangeSelectors = [
+  let stageOnChangeSelectors = [
     '.prev-holder input',
     '.prev-holder select',
     '.prev-holder textarea'
