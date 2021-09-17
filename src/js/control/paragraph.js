@@ -40,11 +40,12 @@ export default class controlParagraph extends control {
         });
       },
       plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
+        'advlist autolink lists link charmap anchor',
         'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table contextmenu paste code'
+        'insertdatetime table contextmenu paste code'
       ],
-      toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | table'
+      toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table',
+      removed_menuitems: 'newdocument'
     };
   }
 
