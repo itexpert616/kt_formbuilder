@@ -40,8 +40,8 @@ export default class controlParagraph extends control {
         });
       },
       plugins: [
-        'advlist autolink lists link charmap anchor',
-        'searchreplace visualblocks code fullscreen',
+        'advlist autolink lists link anchor',
+        'searchreplace visualblocks code',
         'insertdatetime table contextmenu paste code'
       ],
       toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table',
