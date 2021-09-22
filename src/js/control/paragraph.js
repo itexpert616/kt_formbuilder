@@ -40,7 +40,7 @@ export default class controlParagraph extends control {
         });
       },
       plugins: [
-        'advlist autolink lists link anchor',
+        'advlist autolink lists anchor',
         'searchreplace visualblocks code',
         'insertdatetime table contextmenu paste code'
       ],
