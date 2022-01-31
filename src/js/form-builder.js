@@ -515,6 +515,7 @@ const FormBuilder = function(opts, element) {
         'subtype',
       ],
       signature: [
+        'required',
         'subtype',
       ],
       number: defaultAttrs.concat([
@@ -803,12 +804,13 @@ const FormBuilder = function(opts, element) {
   }
 
   const boolAttribute = (name, values, labels) => {
+    const {type} = values;
     let label = txt => m('label', txt, {
       for: `${name}-${data.lastID}`
     }).outerHTML;
     let cbAttrs = {
       type: 'checkbox',
-      className: `fld-${name}`,
+      className: `fld-${name} fld-${name}-${type}`,
       name,
       id: `${name}-${data.lastID}`
     };
@@ -834,7 +836,8 @@ const FormBuilder = function(opts, element) {
     right = m('div', right, {className: 'input-wrap'}).outerHTML;
 
     return m('div', left.concat(right), {
-      className: `form-group ${name}-wrap`
+      className: `form-group ${name}-wrap ${name}-wrap-${type}`,
+      style: 'display: none'
     }).outerHTML;
   };
 
@@ -1079,6 +1082,9 @@ const FormBuilder = function(opts, element) {
     liContents += m('label', utils.parsedHtml(label), {
       className: 'field-label'
     }).outerHTML;
+    if (values.type === 'signature') {
+      values.required = true;
+    }
     let requiredDisplay = values.required ? 'display:inline' : '';
     liContents += m('span', ' *', {
       className: 'required-asterisk',

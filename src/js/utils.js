@@ -109,7 +109,8 @@
 
   utils.safeAttrName = function(name) {
     let safeAttr = {
-      className: 'class'
+      className: 'class',
+      style: 'style'
     };
 
     return safeAttr[name] || utils.hyphenCase(name);

@@ -166,6 +166,9 @@ class FormRender {
       let engine = new opts.layout(opts.layoutTemplates);
       for (let i = 0; i < opts.formData.length; i++) {
         let fieldData = opts.formData[i];
+        if (fieldData.type === 'signature') {
+          opts.formData[i].required = true;
+        }
         let sanitizedField = this.santizeField(fieldData);
 
         // determine the control class for this type, and then process it through the layout engine
