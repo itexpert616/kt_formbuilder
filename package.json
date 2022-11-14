@@ -171,7 +171,7 @@
     "style-loader": "^0.16.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "webpack": "^2.4.1",
+    "webpack": "^5.75.0",
     "webpack-dev-server": "^2.4.5"
   },
   "eslintConfig": {
